@@ -10,10 +10,12 @@ import java.util.Properties;
 
 /**
  * 自定义注释生成器.
+ *
  * @author yiqing.zhang, {@literal <yiqing.zhang@leyantech.com>}
  * @date 2021-09-29.
  */
 public class CommentGenerator extends DefaultCommentGenerator {
+
   private boolean addRemarkComments = false;
 
   /**
@@ -34,7 +36,13 @@ public class CommentGenerator extends DefaultCommentGenerator {
     String remarks = introspectedColumn.getRemarks();
     //根据参数和备注信息判断是否添加备注信息
     if (addRemarkComments && StringUtility.stringHasValue(remarks)) {
-      addFieldJavaDoc(field, remarks);
+//      addFieldJavaDoc(field, remarks);
+      // 转义数据库特殊字符
+      if (remarks.contains("\"")) {
+        remarks.replace("\"", "'");
+      }
+      // 给 model 字段增加 swagger 注解
+      field.addJavaDocLine("@ApiModelProperty(value= \"" + remarks + "\")");
     }
   }
 
@@ -52,6 +60,5 @@ public class CommentGenerator extends DefaultCommentGenerator {
     addJavadocTag(field, false);
     field.addJavaDocLine(" */");
   }
-
 
 }
