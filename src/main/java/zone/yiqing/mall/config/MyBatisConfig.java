@@ -12,5 +12,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @MapperScan("zone.yiqing.mall.mbg.mapper")
 public class MyBatisConfig {
-
+  
 }
