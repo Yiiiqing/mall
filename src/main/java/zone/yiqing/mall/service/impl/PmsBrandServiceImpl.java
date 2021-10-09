@@ -17,6 +17,7 @@ import java.util.List;
 @Service
 public class PmsBrandServiceImpl implements PmsBrandService {
 
+  // 这里的报错是 idea 的问题, Mapper 在编译后的包中
   @Autowired
   private PmsBrandMapper brandMapper;
 
