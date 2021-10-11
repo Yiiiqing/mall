@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2021-09-29.
  */
 @Configuration
-@MapperScan("zone.yiqing.mall.mbg.mapper")
+@MapperScan({"zone.yiqing.mall.mbg.mapper","zone.yiqing.mall.dao"})
 public class MyBatisConfig {
   
 }

@@ -1,9 +1,10 @@
 package zone.yiqing.mall.mbg.mapper;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import zone.yiqing.mall.mbg.model.PmsBrand;
 import zone.yiqing.mall.mbg.model.PmsBrandExample;
+
+import java.util.List;
 
 public interface PmsBrandMapper {
     int countByExample(PmsBrandExample example);

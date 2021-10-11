@@ -13,6 +13,8 @@
     <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
     <!-- 为生成的Java模型创建一个toString方法 -->
     <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+    <!--生成mapper.xml时覆盖原文件-->
+    <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
     <!--可以自定义生成model的代码注释-->
     <commentGenerator type="zone.yiqing.mall.mbg.CommentGenerator">
       <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
@@ -26,17 +28,39 @@
       userId="${jdbc.userId}"
       password="${jdbc.password}">
       <!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题-->
-      <property name="nullCatalogMeansCurrent" value="true" />
+      <property name="nullCatalogMeansCurrent" value="true"/>
     </jdbcConnection>
     <!--指定生成model的路径-->
     <javaModelGenerator targetPackage="zone.yiqing.mall.mbg.model" targetProject="src/main/java"/>
     <!--指定生成mapper.xml的路径-->
-    <sqlMapGenerator targetPackage="zone.yiqing.mall.mbg.mapper" targetProject="src/main/resources"/>
+    <sqlMapGenerator targetPackage="zone.yiqing.mall.mbg.mapper"
+      targetProject="src/main/resources"/>
     <!--指定生成mapper接口的的路径-->
     <javaClientGenerator type="XMLMAPPER" targetPackage="zone.yiqing.mall.mbg.mapper"
       targetProject="src/main/java"/>
     <!--生成全部表tableName设为%-->
     <table tableName="pms_brand">
+      <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+    </table>
+    <!--后台用户表-->
+    <table tableName="ums_admin">
+      <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+    </table>
+    <!--后台用户角色表-->
+    <table tableName="ums_role">
+      <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+    </table>
+    <!--后台用户权限表-->
+    <table tableName="ums_permission">
+      <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+    </table>
+    <table tableName="ums_admin_role_relation">
+      <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+    </table>
+    <table tableName="ums_role_permission_relation">
+      <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+    </table>
+    <table tableName="ums_admin_permission_relation">
       <generatedKey column="id" sqlStatement="MySql" identity="true"/>
     </table>
   </context>
