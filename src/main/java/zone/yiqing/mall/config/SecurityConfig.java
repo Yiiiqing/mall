@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import zone.yiqing.mall.component.JwtAuthenticationTokenFilter;
 import zone.yiqing.mall.component.RestAuthenticationEntryPoint;
@@ -33,8 +32,9 @@ import java.util.List;
  */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled=true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
   @Autowired
   private UmsAdminService adminService;
   @Autowired
@@ -72,7 +72,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // 禁用缓存
     httpSecurity.headers().cacheControl();
     // 添加JWT filter
-    httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter(),
+        UsernamePasswordAuthenticationFilter.class);
     //添加自定义未授权和未登录结果返回
     httpSecurity.exceptionHandling()
         .accessDeniedHandler(restfulAccessDeniedHandler)
@@ -97,14 +98,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       UmsAdmin admin = adminService.getAdminByUsername(username);
       if (admin != null) {
         List<UmsPermission> permissionList = adminService.getPermissionList(admin.getId());
-        return new AdminUserDetails(admin,permissionList);
+        return new AdminUserDetails(admin, permissionList);
       }
       throw new UsernameNotFoundException("用户名或密码错误");
     };
   }
 
   @Bean
-  public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter(){
+  public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
     return new JwtAuthenticationTokenFilter();
   }
 
