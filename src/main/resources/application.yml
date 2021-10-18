@@ -24,6 +24,10 @@ spring:
         enabled: true
       cluster-nodes: 127.0.0.1:9300 # es 地址+端口
       cluster-name: elasticsearch # es 集群名称
+    mongodb:
+      database: mall-port # mongodb的连接的数据库
+      authentication-database: admin
+      uri: mongodb://admin:123456@localhost:27017
 mybatis:
   mapper-locations:
     - classpath:mapper/*.xml
